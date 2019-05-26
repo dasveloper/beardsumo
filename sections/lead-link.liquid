@@ -1,0 +1,56 @@
+{%- if section.settings.image -%}
+  {%- assign overlay_color = section.settings.overlay_color | hex_to_rgba: 0.6 -%}
+{%- else -%}
+  {%- assign overlay_color = section.settings.overlay_color -%}
+{%- endif -%}
+
+<section class="section section-{{ section.id }}">
+ <div class="container">
+
+   {% if section.settings.lead_link %}
+
+  <a href="{{ section.settings.lead_link }}" >
+    {% if section.settings.image and  section.settings.image_mobile %}
+
+  <picture>
+  <source media="(min-width: 480px)" srcset="{{  section.settings.image | img_url: '1200x500'}}">
+  <img  class="promotion__image" src="{{  section.settings.image_mobile | img_url: '400x300'}}">
+</picture>
+    {% endif %}
+</a>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+
+{
+  "name": "Lead Link",
+  "class": "shopify-section__promotion",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image",
+      "info": "1200 x 400px .jpg recommended"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Background image mobile",
+      "info": "480 x 400px .jpg recommended"
+    },
+    {
+      "type": "url",
+      "id": "lead_link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "category": "Image",
+      "name": "Image with text"
+    }
+  ]
+}
+{% endschema %}
